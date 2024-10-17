@@ -2,22 +2,29 @@ import express from "express"
 import cors from "cors"
 import { connectDB } from "./config/db.js"
 // import { MongoClient, ServerApiVersion, ObjectId } from "mongodb";
-import dotenv from 'dotenv';
+
 import { userRoute } from "./routes/user.route.js";
-dotenv.config();
+import { surveyRoute } from "./routes/survey.route.js";
+import { DB_URI, PORT } from "./constants/getenv.constant.js";
+
 
 const app = express();
-const PORT = process.env.PORT || 5000;
+const port = PORT || 5000;
+
+// console.log(DB_URI);
+
 
 app.use(cors());
 app.use(express.json());
 
-const uri = process.env.DB_URI;
+const uri = DB_URI;
 connectDB(uri);
 
 app.use("/user", userRoute);
 
-app.use("/", (req, res) => {
+app.use("/survey", surveyRoute)
+
+app.use("/", (req, res) =>{
   res.status(200).json({
     success: true,
     message: "Its ok", 
@@ -25,9 +32,8 @@ app.use("/", (req, res) => {
 });
 
 
-
-app.listen(PORT, () => {
-  console.log(`http://localhost:${PORT}`);
+app.listen(port, () => {
+  console.log(`http://localhost:${port}`);
 });
 
 

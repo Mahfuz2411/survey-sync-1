@@ -1,14 +1,15 @@
-import Footer from "./components/Footer"
-import Navbar from "./components/Navbar"
+import { RouterProvider } from "react-router-dom";
+import router from "./routes/Route";
+import { HelmetProvider } from 'react-helmet-async';
 
 function App() {
-
   return (
-    <div className="min-h-screen flex flex-col justify-between">
-      <Navbar/>
-      <Footer/>      
-    </div>
+    <>
+      <HelmetProvider >
+        <RouterProvider router={router} />
+      </HelmetProvider>
+    </>
   )
 }
 
-export default App
+export default App;
